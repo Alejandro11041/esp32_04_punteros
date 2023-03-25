@@ -1,49 +1,27 @@
-#include <Arduino.h>
 #include <WiFi.h>
-
 
 const char * ssid = "virus";
 const char * password = "a1b2c3d4";
 
+
 void setup() {
-  pinMode(2, OUTPUT);  //Coloco el pin 2 como salida
   Serial.begin(115200);
-  Serial.println("Inicializando dispositivo");
   WiFi.begin(ssid, password);
-  Serial.println("Estableciendo vinculo con el AP.");
-  while(WiFi.status() != WL_CONNECTED){
-    Serial.print(".");
+  while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
+    Serial.println("Conectando a la red WiFi...");
   }
-  Serial.println("\r\nConexion establecida");
+  Serial.println("Conectada a una red Wifi.");
+  
+
 }
-
-/**
- * @brief Esta funcion es un bucle infinito que corresponde al main()
- * 
- */
-
-
-int numero = 10;
 void loop() {
-Serial.print(“En loop(): numero = “); //En loop(): numero = 10
-Serial.println(numero);
-duplicar( &numero ); // Pasamos la dirección de numero a la función
-}
-void duplicar(int *punteroNumero) {
-*punteroNumero = *punteroNumero * 2 ;
-Serial.print(“En duplicar(): punteroNumero = “);
-Serial.println(*punteroNumero);
-
-/*
-char institucion[] = { ‘U',’C’,’E',’V',’A',’\n’} ;
-for (int i=0 ; i < 6 ; i++)
-Serial.print( institucion[i] );
-// Serial.print( *(institucion + i) );
-// Serial.print( *( institucion + i * sizeof(char)) );
-Serial.flush();
-exit(0);
-
-*/
-
+  int numero = 10;
+  int *puntero = &numero;
+  Serial.print("El valor es: ");
+  Serial.println(numero);
+  Serial.print("La dirección de memoria de puntero es: ");
+  Serial.printf("%p\n", (void*)puntero);
+  Serial.print("El valor de *puntero es: ");
+  Serial.println(*puntero);
 }
